@@ -37,4 +37,16 @@ public class SurveyController {
         //returning a creation status back
         return ResponseEntity.created(uri).build();
     }
+    @DeleteMapping("/surveys/{surveyId}/questions/{questionId}")
+    public ResponseEntity<?> deleteQuestionFromSurvey(@PathVariable String surveyId, @PathVariable String questionId){
+        //adding the question, getting the new id
+        service.deleteQuestion(surveyId,questionId);
+
+        //replacing the id in uri by the new one - creating location
+        //URI  /surveys/{surveyId}/questions/{questionId} question.getId()
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(questionId).toUri();
+        //returning a creation status back
+        return ResponseEntity.created(uri).build();
+    }
+
 }

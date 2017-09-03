@@ -5,6 +5,8 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import com.springboot.app.model.Question;
 import com.springboot.app.model.Survey;
 import org.springframework.stereotype.Component;
@@ -91,5 +93,20 @@ public class SurveyService {
         survey.getQuestions().add(question);
 
         return question;
+    }
+    public void deleteQuestion(String surveyId, String questionId) {
+
+        Survey survey = retrieveSurvey(surveyId);
+
+        if (survey == null) {
+            throw new RuntimeException("No such survey");
+        }
+        List<Question> questions = survey.getQuestions();
+        Optional<Question> matchingObjects = questions.stream().
+                filter(p -> p.getId().equals(questionId)).
+                findFirst();
+        Question questionToDelete = matchingObjects.orElse(null);
+
+        survey.getQuestions().remove(questionToDelete);
     }
 }
