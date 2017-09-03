@@ -5,8 +5,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
 import com.springboot.app.model.Question;
 import com.springboot.app.model.Survey;
 import org.springframework.stereotype.Component;
