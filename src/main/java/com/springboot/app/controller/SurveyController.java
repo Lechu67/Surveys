@@ -1,6 +1,7 @@
 package com.springboot.app.controller;
 
 import com.springboot.app.model.Question;
+import com.springboot.app.model.Survey;
 import com.springboot.app.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,14 @@ public class SurveyController {
     @Autowired
     private SurveyService service;
 
+    @GetMapping("/surveys")
+    public List<Survey> getAllSurveys(){
+        return service.retrieveAllSurveys();
+    }
+    @GetMapping("/surveys/{surveyId}")
+    public Survey getSurvey(@PathVariable String surveyId){
+        return service.retrieveSurvey(surveyId);
+    }
     @GetMapping("/surveys/{surveyId}/questions")
     public List<Question> getQuestionsFromSurvey(@PathVariable String surveyId){
         return service.retrieveQuestions(surveyId);
@@ -41,7 +50,6 @@ public class SurveyController {
     public ResponseEntity<?> deleteQuestionFromSurvey(@PathVariable String surveyId, @PathVariable String questionId){
         //adding the question, getting the new id
         service.deleteQuestion(surveyId,questionId);
-
         //replacing the id in uri by the new one - creating location
         //URI  /surveys/{surveyId}/questions/{questionId} question.getId()
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(questionId).toUri();
