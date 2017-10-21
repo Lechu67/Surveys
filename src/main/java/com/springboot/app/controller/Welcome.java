@@ -2,6 +2,7 @@ package com.springboot.app.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +16,20 @@ public class Welcome {
 
     @RequestMapping("/welcome")
     public String welcome() {
-        return welcome.welcome2();
+        return welcome.welcomeMessage();
     }
 }
 
 @Component
 class WelcomeService {
 
-    public String welcome2(){
-        return"Goodbye Modified";
+    @Value("${welcome.message}")
+    private String welcome;
+    @Value("${app.name}")
+    private String version;
+
+    public String welcomeMessage(){
+        return welcome+version;
     }
 }
+
