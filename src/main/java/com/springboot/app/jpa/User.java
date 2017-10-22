@@ -15,10 +15,10 @@ public class User {
     private String name;
     private String role;
 
-    public User() {
+    protected User() {
     }
 
-    public User(String name, String role) {
+    protected User(String name, String role) {
         this.name = name;
         this.role = role;
     }
@@ -33,5 +33,14 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
