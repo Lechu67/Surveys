@@ -28,6 +28,8 @@ public class UserCommandLineRunner implements CommandLineRunner {
         for (User user : repo.findByRole("User")) {
             log.info(user.toString());
         }
+        log.info(repo.countByRole("User").toString());
+
 
 
     }
